@@ -2,9 +2,8 @@ pipeline {
     agent { any { image 'maven:3.9.9-eclipse-temurin-21-alpine' } }
         stages {
             stage('build') {
-                withMaven(maven: 'mvn') {
-                    sh "mvn clean package"
-                }
+              sh '''
+                 mvn clean package
             }
         }
 }
