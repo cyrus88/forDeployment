@@ -3,7 +3,7 @@ pipeline {
         stages {
             stage('build') {
                 steps {
-                    sh 'sudo docker build -t myapp:latest'                
+                    sh 'sudo docker build -t target/myapp:latest'                
                 }                 
             }
             stage('test') {
