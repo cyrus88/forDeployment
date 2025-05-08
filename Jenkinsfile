@@ -3,8 +3,7 @@ pipeline {
         stages {
             stage('build') {
                 steps {
-                    SUDO_PASSWORD=noida@123
-                    sh '$echo SUDO_PASSWORD |sudo docker build -t forDeployment: sushant'                
+                    sh '$echo noida@123 |sudo docker build -t forDeployment: sushant'                
                 }                 
             }
             stage('test') {
