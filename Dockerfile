@@ -1,5 +1,5 @@
 # Docker Build Maven Stage
-FROM maven:3-jdk-8-alpine AS build
+FROM maven:3.6.3-jdk-8-alpine AS build
 # Copy folder in docker
 WORKDIR /opt/app
 COPY ./ /opt/app
