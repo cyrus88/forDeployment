@@ -3,7 +3,7 @@ pipeline {
         stages {
             stage('build') {
                 steps {
-                    sh 'mvn -v'
+                    sh 'docker build -t forDeployment: sushant'                
                 }                 
             }
             stage('test') {
