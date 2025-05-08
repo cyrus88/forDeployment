@@ -3,7 +3,7 @@ pipeline {
         stages {
             stage('build') {
                 steps {
-                    sh 'sudo docker build --pull --rm -f "target/myapp" -t myapp:latest'                
+                    sh 'sudo docker build -f '.docker/http/Dockerfile' --target my-target --label my-label'                
                 }                 
             }
             stage('test') {
