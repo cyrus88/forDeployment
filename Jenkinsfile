@@ -3,7 +3,7 @@ pipeline {
         stages {
             stage('build') {
                 steps {
-                    sh 'docker build -t forDeployment: sushant'                
+                    sh 'sudo docker build -t forDeployment: sushant'                
                 }                 
             }
             stage('test') {
