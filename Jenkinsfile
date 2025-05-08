@@ -3,7 +3,7 @@ pipeline {
         stages {
             stage('build') {
                 steps {
-                    sh 'sudo docker build -f 'Dockerfile' --target my-target --label my-label .'                
+                    sh 'sudo docker build -f Dockerfile -t proj:myapp .'                
                 }                 
             }
             stage('test') {
