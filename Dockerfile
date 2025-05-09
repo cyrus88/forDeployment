@@ -6,7 +6,7 @@ COPY ./ /opt/app
 RUN mvn clean install -DskipTests
 # Run spring boot in Docker
 FROM openjdk:21-jdk
-COPY --from=build /opt/app/target/*.jar app.jar
+COPY --from=build /opt/app/target/*.jar cyrus88.jar
 ENV PORT 8081
 EXPOSE $PORT
-ENTRYPOINT ["java","-jar","-Xmx1024M","-Dserver.port=${PORT}","app.jar"]
+ENTRYPOINT ["java","-jar","-Xmx1024M","-Dserver.port=${PORT}","cyrus88.jar"]
