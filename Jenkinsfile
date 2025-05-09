@@ -7,9 +7,7 @@ node {
          stage('Clone Repo') {
             // for display purposes
             // Get some code from a GitHub repository
-            git url: 'https://github.com/cyrus88/cyrus88.git',
-                credentialsId: 'cyrus88',
-                branch: 'main'
+            echo "Clone Repo"
          }
           stage('Build docker') {
                  dockerImage = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
