@@ -15,8 +15,12 @@ node {
                  app = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
           }
           stage('Push image') {
-                 docker.withRegistry('https://registry.hub.docker.com/', 'cyrus88') {            
-                 app.push("${env.BUILD_NUMBER}")            
+                 docker.withRegistry('https://registry.hub.docker.com/', 'cyrus88') {   
+                 echo "Pushing 1..."
+                 app.push("${env.BUILD_NUMBER}") 
+                 echo "Pushing 2..."
+                 app.push("latest")
+                 echo "Pushed!"
               }    
            }
           stage('Deploy docker'){
