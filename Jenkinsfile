@@ -11,23 +11,14 @@ node {
                 credentialsId: 'cyrus88',
                 branch: 'main'         
           }
-          stage('Build docker') {
-            steps{
-                script{
-                    sh 'docker build -t javatechie/devops-integration .'
-                }
-            }
+         stage('Build docker') {
+            sh 'docker build -t javatechie/devops-integration .'
           }
-          stage('Push image') {
-            steps{
-                script{
-                   withCredentials([string(credentialsId: 'cyrus88', variable: 'noida@123')]) {
-                   sh 'docker login -u cyrus88 -p ${noida@123}'
-                    }
-                   sh 'docker push javatechie/devops-integration'
-                }
-                
-              }    
+         stage('Push image') {
+            withCredentials([string(credentialsId: 'cyrus88', variable: 'noida@123')]) {
+             sh 'docker login -u cyrus88 -p ${noida@123}'
+            }
+            sh 'docker push javatechie/devops-integration'                  
            }
           stage('Deploy docker'){
                   echo "Docker Image Tag Name: ${app}"
