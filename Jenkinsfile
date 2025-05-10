@@ -1,7 +1,7 @@
 node {
     def WORKSPACE = "/var/lib/jenkins/workspace/basic"
     def dockerImageTag = "springboot-deploy${env.BUILD_NUMBER}"
-
+    def app
     try{
 //          notifyBuild('STARTED')
          stage('Clone Repo') {
@@ -12,11 +12,16 @@ node {
                 branch: 'main'         
           }
           stage('Build docker') {
-                 dockerImage = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
+                 app = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
           }
-
+          stage('Push image') {
+                 docker.withRegistry('https://registry.hub.docker.com', 'cyrus88') {            
+                 app.push("${env.BUILD_NUMBER}")            
+                 app.push("latest")        
+              }    
+           }
           stage('Deploy docker'){
-                  echo "Docker Image Tag Name: ${dockerImageTag}"
+                  echo "Docker Image Tag Name: ${app}"
                   sh "docker stop springboot-deploy || true && docker rm springboot-deploy || true"
                   sh "docker run --name springboot-deploy -d -p 8081:8081 springboot-deploy:${env.BUILD_NUMBER}"
           }
