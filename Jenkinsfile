@@ -17,7 +17,7 @@ node {
           stage('Push image') {
                  docker.withRegistry('https://registry.hub.docker.com/', 'cyrus88') {   
                  echo "Pushing 1..."
-                 app.push("${env.BUILD_NUMBER}") 
+                 app.push() 
                  echo "Pushing 2..."
                  app.push("latest")
                  echo "Pushed!"
