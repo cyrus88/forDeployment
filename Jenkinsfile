@@ -3,7 +3,7 @@ node {
     def dockerImageTag = "springboot-deploy${env.BUILD_NUMBER}"
     def app
     try{
-//          notifyBuild('STARTED')
+          notifyBuild('STARTED')
          stage('Clone Repo') {
             // for display purposes
             // Get some code from a GitHub repository
@@ -18,15 +18,15 @@ node {
                 echo "push image done"
            }
           stage('Deploy docker'){
-                  echo "Docker Image Tag Name: ${app}"
+                  echo "Docker Image Tag Name: ${dockerImageTag}"
                   sh "docker stop springboot-deploy || true && docker rm springboot-deploy || true"
                   sh "docker run --name springboot-deploy -d -p 8081:8081 springboot-deploy:${env.BUILD_NUMBER}"
           }
     }catch(e){
-//         currentBuild.result = "FAILED"
+         currentBuild.result = "FAILED"
         throw e
     }finally{
-//         notifyBuild(currentBuild.result)
+         notifyBuild(currentBuild.result)
     }
 }
 def notifyBuild(String buildStatus = 'STARTED'){
