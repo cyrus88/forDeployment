@@ -12,15 +12,10 @@ node {
                 branch: 'main'         
           }
          stage('Build docker') {
-            sh 'docker build -t javatechie/devops-integration .'
+             app = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
           }
          stage('Push image') {
-                 echo "push image started"
-                echo "pushing............"
-                docker.withRegistry('https://hub.docker.com/repositories/cyrus88', 'cyrus88')
-                sh 'docker push javatechie/devops-integration'
                 echo "push image done"
-
            }
           stage('Deploy docker'){
                   echo "Docker Image Tag Name: ${app}"
