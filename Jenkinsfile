@@ -15,7 +15,7 @@ node {
             sh 'docker build -t javatechie/devops-integration .'
           }
          stage('Push image') {
-            withCredentials([string(credentialsId: 'cyrus88', variable: 'noida@123')]) {
+            withCredentials([usernamePassword(credentialsId: 'cyrus88', usernameVariable: 'cyrus88', passwordVariable: 'noida@123')]) {
              sh 'docker login -u cyrus88 -p ${noida@123}'
             }
             sh 'docker push javatechie/devops-integration'                  
