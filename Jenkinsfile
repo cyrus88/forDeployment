@@ -15,6 +15,8 @@ node {
              app = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
           }
          stage('Push image') {
+                docker.withRegistry('https://hub.docker.com/repositories/cyrus88', 'cyrus88')
+                app.push()
                 echo "push image done"
            }
           stage('Deploy docker'){
