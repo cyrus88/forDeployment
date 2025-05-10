@@ -12,15 +12,21 @@ node {
                 branch: 'main'         
           }
           stage('Build docker') {
-                 app = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
+            steps{
+                script{
+                    sh 'docker build -t javatechie/devops-integration .'
+                }
+            }
           }
           stage('Push image') {
-                 docker.withRegistry('https://registry.hub.docker.com/', 'cyrus88') {   
-                 echo "Pushing 1..."
-                 app.push() 
-                 echo "Pushing 2..."
-                 app.push("latest")
-                 echo "Pushed!"
+            steps{
+                script{
+                   withCredentials([string(credentialsId: 'cyrus88', variable: 'noida@123')]) {
+                   sh 'docker login -u cyrus88 -p ${noida@123}'
+                    }
+                   sh 'docker push javatechie/devops-integration'
+                }
+                
               }    
            }
           stage('Deploy docker'){
