@@ -16,11 +16,6 @@ node {
           }
          stage('Push image') {
              echo "push image started"
-             withCredentials([usernamePassword(credentialsId: 'cyrus88', usernameVariable: 'cyrus88', passwordVariable: 'noida@123')]) {
-                          echo "push image credential"
-                 sh 'docker login -u cyrus88 -p ${noida@123}'
-                          echo "push image credential done"
-            }
                 echo "pushing............"
             sh 'docker push javatechie/devops-integration'  
                 echo "push image done"
