@@ -3,7 +3,7 @@ node {
     def dockerImageTag = "springboot-deploy${env.BUILD_NUMBER}"
     def app
     try{
-          notifyBuild('STARTED')
+          // notifyBuild('STARTED')
          stage('Clone Repo') {
             // for display purposes
             // Get some code from a GitHub repository
@@ -15,7 +15,7 @@ node {
              app = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
           }
          stage('Push image') {
-                docker.withRegistry('https://hub.docker.com/repositories/cyrus88', 'cyrus88')
+                docker.withRegistry('https://registry.hub.docker.com', 'cyrus88')
                 app.push()
                 echo "push image done"
            }
@@ -25,10 +25,10 @@ node {
                   sh "docker run --name springboot-deploy -d -p 8081:8081 springboot-deploy:${env.BUILD_NUMBER}"
           }
     }catch(e){
-         currentBuild.result = "FAILED"
+         // currentBuild.result = "FAILED"
         throw e
     }finally{
-         notifyBuild(currentBuild.result)
+         // notifyBuild(currentBuild.result)
     }
 }
 def notifyBuild(String buildStatus = 'STARTED'){
