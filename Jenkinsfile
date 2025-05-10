@@ -15,9 +15,10 @@ node {
             sh 'docker build -t javatechie/devops-integration .'
           }
          stage('Push image') {
-             echo "push image started"
+                 echo "push image started"
                 echo "pushing............"
-            sh 'docker push javatechie/devops-integration'  
+                docker.withRegistry('https://hub.docker.com/repositories/cyrus88', 'cyrus88')
+                sh 'docker push javatechie/devops-integration'
                 echo "push image done"
 
            }
