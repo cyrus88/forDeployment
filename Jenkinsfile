@@ -15,7 +15,7 @@ node {
                  app = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
           }
           stage('Push image') {
-                 docker.withRegistry('https://registry.hub.docker.com', 'cyrus88') {            
+                 docker.withRegistry('https://registry.hub.docker.com/repositories/cyrus88', 'cyrus88') {            
                  app.push("${env.BUILD_NUMBER}")            
                  app.push("latest")        
               }    
@@ -51,7 +51,7 @@ def notifyBuild(String buildStatus = 'STARTED'){
 
   // Email notification
     emailext (
-         to: "admin@gmail.com",
+         to: "sushantsingh.tanwar@gmail.com",
          subject: subject_email,
          body: details,
          recipientProviders: [[$class: 'DevelopersRecipientProvider']]
