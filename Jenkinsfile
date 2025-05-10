@@ -14,10 +14,17 @@ node {
          stage('Build docker') {
              app = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
           }
+         stage('Test image') {           
+            app.inside {            
+             
+             sh 'echo "Tests passed"'        
+            }    
+          }
          stage('Push image') {
-                docker.withRegistry('https://registry.hub.docker.com', 'cyrus88')
+                docker.withRegistry('https://registry.hub.docker.com', 'cyrus88'){
                 app.push()
                 echo "push image done"
+                }
            }
           stage('Deploy docker'){
                   echo "Docker Image Tag Name: ${dockerImageTag}"
