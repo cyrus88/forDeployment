@@ -17,7 +17,6 @@ node {
           stage('Push image') {
                  docker.withRegistry('https://registry.hub.docker.com/', 'cyrus88') {            
                  app.push("${env.BUILD_NUMBER}")            
-                 app.push("latest")        
               }    
            }
           stage('Deploy docker'){
