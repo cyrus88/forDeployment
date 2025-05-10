@@ -15,10 +15,16 @@ node {
             sh 'docker build -t javatechie/devops-integration .'
           }
          stage('Push image') {
-            withCredentials([usernamePassword(credentialsId: 'cyrus88', usernameVariable: 'cyrus88', passwordVariable: 'noida@123')]) {
-             sh 'docker login -u cyrus88 -p ${noida@123}'
+             echo "push image started"
+             withCredentials([usernamePassword(credentialsId: 'cyrus88', usernameVariable: 'cyrus88', passwordVariable: 'noida@123')]) {
+                          echo "push image credential"
+                 sh 'docker login -u cyrus88 -p ${noida@123}'
+                          echo "push image credential done"
             }
-            sh 'docker push javatechie/devops-integration'                  
+                echo "pushing............"
+            sh 'docker push javatechie/devops-integration'  
+                echo "push image done"
+
            }
           stage('Deploy docker'){
                   echo "Docker Image Tag Name: ${app}"
